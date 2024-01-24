@@ -224,3 +224,56 @@ have constructors with no return type.
     type equal to another primitive data type, it actually makes a copy: if `x=1` and `y=2` and you set `x=y`, x will now
     be `x=2`
 
+    ### Arrays are Objects
+
+    - every value of a non-primitive type is an object. There is special language support 
+    for certain operations on arrays such as: declarations, initialization, and indexing.
+
+    ### Interface Inheritance
+
+    - inheritance is the relationship between two objects
+    - Subtyping is one inheritance mechanism, where the relationship is defined by an *interface*. In the interface
+    you specify a set of common methods that each class must contain that inherits the base class. Example:
+    ```java
+    public interface Datable
+    {
+        int month();
+        int day();
+        int year();
+    }
+    
+    // it is then inherited
+    
+    public class Date implements Datable
+    {
+        //implementation code here of the 3 methods
+    }
+    ```
+  
+    ### Implementation Inheritance
+
+    - The next inheritance method is subclassing
+    - Subclassing enables a developer to change behavior and add functionality without rewriting an entire class
+    from scratch. You define a new class that inherits the methods and variables of another class. The subclass can
+    redefine or override methods in the superclass. 
+
+    ### String Conversion
+
+    - By convention, every Java type inherits the `toString()` from Object, so any client can invoke `.toString()`
+    - This is used to convert other primitive data types to strings, and is implicitly used anytime a string is 
+    concatenated with another data type.
+
+    ### Equality
+
+    - Since variable names of objects are only references to their location in memory, you can't check the equality of
+    two declared objects. This can be accomplished, however, with the `.equals()` method.
+
+    ### Memory Management
+
+    - Say you create two objects, `a` and `b`, if you then later set `a = b` you are setting them both to reference
+    the memory location of `b`. This would leave the memory block created for the original `a` still in memory but
+    not able to be referenced. This is known as orphaning an object. 
+    - Memory management is much easier for primitive data types because all of the information needed for memory
+    allocation is known at runtime. 
+    - For objects, it can be more difficult. However, Java has built-in memory management. Reclaiming this unused memory
+    is known as garbage collection. 
