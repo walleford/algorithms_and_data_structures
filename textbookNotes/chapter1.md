@@ -64,16 +64,16 @@ that implements the procedure
 
       - If statements are written like so:
   
-      ~~~
-      if (true) 
-      {
-          System.out.println("hello")
-      }
-      else 
-      {
-          System.out.println("no")
-      }
-      ~~~ 
+          ~~~
+          if (true) 
+          {
+              System.out.println("hello")
+          }
+          else 
+          {
+              System.out.println("no")
+          }
+          ~~~ 
 
       ### Break and continue:
 
@@ -84,21 +84,21 @@ that implements the procedure
 
       - many loops intialize an index variable to create a counter for the loop:
 
-      ```java
-      public class Initializing {
-          public static void main(String[] args) {
-              for (int count = 0; count <= 3; count++) {
-                  System.out.println(count);
-              }
-              //This is similar to this:
-              int counter = 0;
-              while (counter <= 3) {
-                  System.out.println(counter);
-                  counter++;
+          ```java
+          public class Initializing {
+              public static void main(String[] args) {
+                  for (int count = 0; count <= 3; count++) {
+                      System.out.println(count);
+                  }
+                  //This is similar to this:
+                  int counter = 0;
+                  while (counter <= 3) {
+                      System.out.println(counter);
+                      counter++;
+                  }
               }
           }
-      }
-      ```
+          ```
       ### Arrays
 
       - an array stores a sequence of values that are all of the same type. The method we typically use to refer to 
@@ -162,5 +162,65 @@ that implements the procedure
         - f for floating point values
         - s for String values
 
+    ### Binary Search
+
+    - takes an int key and a *sorted* array. It maintains two variables `lo` and `hi` and checks that the key is in the
+    range `a[lo...hi]`. It will enter a loop that tests the middle entry of the array, if it is less than it will then
+    test the mid of the left interval (same for greater than but right interval)
+    - if the key is equal to the mid value, it will return mid. If it doesn't find that the key is in the array, it will
+    return -1.
+
+    ### Why do we embrace data abstraction?
+
+    - It enables us to expand our ability to reuse code through modular programming
+    - It provides a convenient mechanism for building so-called linked data structures
+    - it enables us to precisely define the algorithmic challenges that we face.
+
+## 1.2 Data Abstraction
+
+- a data type is a set of values and a set of operations on those values
+- the process of defining and using data types is known as *data abstraction*
+- programming in java is largely based on building data types known as *reference types* with the Java Class.
+- an abstract data type is a data type whose representation is hidden from the client. Implementing an ADT in Java
+class is not very different from implementing a function library as a set of static methods.
+- ADTs are implemented as a java Class, may provide a return value of a specified type or no return value, 
+have constructors with no return type.
+
+    ### Inherited Methods
+
+    - various java conventions enable a custom data type to take advantage of built-in language mechanisms by
+    including specific methods in the API. For example, all data types have a `.toString()` method that will
+    represent the return value as a String representation.
+
+    ### Objects
+
+    - Object is an entity that can take on a data-type value. Objects are characterized by 3 essential properties:
     
- 
+        - state, identity, and behavior
+    - The state of an object is a value from its data type
+    - The identity of an object distinguishes on object from another. Useful to think about where it is stored in memory
+    - The behavior of an object is the effect of data-type operations.
+    - A *reference* is a mechanism for accessing an object. 
+
+    ### Creating Objects
+
+    - each specific data type value is stored in an object.
+    - To create or instantiate an individual object, we invoke the data type constructor using the `new` keyword.
+    followed by the class name, followed by a `()` or a list of arguments enclosed in the parentheses.
+    - A constructor has no return types because all it does is create an object of the original data type in memory
+    and references that memory location.
+    - An example is: `Counter heads = new Counter("heads")`
+
+    ### Invoking instance methods
+
+    - so now we have our data type Counter and a object of it labeled `heads`... How do we use the methods available in 
+    Counter?
+    - We can invoke methods of the `Counter` data type by doing something like: `heads.increment()`
+
+    ### Aliasing in objects
+
+    - In objects, if you set one variable equal to another object, all it does is create a reference to that specific
+    memory location. So if you make changes to one, it will make changes to both. Whereas when you set one primitive data
+    type equal to another primitive data type, it actually makes a copy: if `x=1` and `y=2` and you set `x=y`, x will now
+    be `x=2`
+
