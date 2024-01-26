@@ -4,8 +4,9 @@
  */
 
 package a01_data_structure.s1_bags;
-
 import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A linked-list bag allowing new elements in an efficient way.
@@ -107,13 +108,35 @@ public class LinkedListBag<Item> implements Bag<Item>
     public String toString()
     {
         String result = "[";
-        String seperator = "";
-        for (int i=0 ; i< numberOfElements; i++)
-        {
-            result += seperator + i.item.toString();
-            seperator = ", ";
+        boolean needSeparator = false;
+        String separator = ", ";
+        for (Item item: this) {
+            if (needSeparator)
+            {
+                result += separator + item.toString();
+            } else{
+                result += item.toString();
+                needSeparator = true;
+            }
         }
         result += "]";
         return result;
+    }
+
+    @Override
+    public void maxFreq()
+    {
+        HashMap<String, Integer> freq = new HashMap<String, Integer>();
+        for (Item item: this)
+        {
+            if (!freq.containsKey(item))
+            {
+                freq.put(item.toString(), 1);
+            } else {
+                int value = freq.get(item.toString());
+                freq.put(item.toString(), value+1);
+            }
+        }
+        Map.Entry.comparingByValue();
     }
 }

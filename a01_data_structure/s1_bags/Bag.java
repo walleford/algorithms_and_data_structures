@@ -44,6 +44,8 @@ public interface Bag<Item> extends Iterable<Item>
         return size() == 1;
     }
 
+    public void maxFreq();
+
 
     /**
      * Creates a string representation of the bag, starts with start string, ends with end string, and is separated

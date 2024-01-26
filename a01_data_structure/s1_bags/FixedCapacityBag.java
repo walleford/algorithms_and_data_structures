@@ -79,11 +79,16 @@ public class FixedCapacityBag<Item> implements Bag<Item>
     public String toString()
     {
         String result = "[";
-        String seperator = "";
-        for (int i=0 ; i< numberOfElements; i++)
-        {
-            result += seperator + elements[i].toString();
-            seperator = ", ";
+        boolean needSeparator = false;
+        String separator = "";
+        for (Item item: this) {
+            if (needSeparator)
+            {
+                result += separator;
+            } else{
+                needSeparator = true;
+                separator = " ";
+            }
         }
         result += "]";
         return result;

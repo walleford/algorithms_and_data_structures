@@ -261,32 +261,26 @@ public class TestBag
         }
     }
 
-    public static void testBag(Bag<String> bag)
+    public static void testBag(Bag<Integer> bag)
     {
         System.out.println("Bag: " + bag.toString());
-        System.out.println("Adding item: book");
-        bag.add("book");
+        System.out.println("Adding item: 1");
+        bag.add(1);
         System.out.println("Bag: " + bag.toString());
-        bag.add("laptop");
-        bag.add("camera");
-        bag.add("shoes");
-        bag.add("keys");
+        bag.add(2);
+        bag.add(3);
+        bag.add(3);
+        bag.add(2);
         System.out.println("Bag: " + bag.toString());
         try {
             System.out.println("Adding the sixth item: money");
-            bag.add("money");
+            bag.add(5);
             System.out.println("Bag: " + bag.toString());
         } catch (Exception e) {
             System.out.println("Error adding a sixth element: " +e.getMessage());
         }
-        System.out.println("How many items start with letter b?");
-        int count=0;
-        // for each can be used on our bag because of the Iterable<item> method we have made for it.
-        for (String item: bag)
-        {
-            if (item.charAt(0)=='b') count++;
-        }
-        System.out.println("There are "+count+" items in the bag that start with B.");
+        System.out.println("Finding the value with the most frequency...");
+        bag.maxFreq();
     }
 
     // This is the main method performing all of the tests declared above.
@@ -298,9 +292,7 @@ public class TestBag
         System.out.println("Fixed Capacity Bag - Task 2a - by Jordan Wallingsford");
         Date date = new Date();
         System.out.println("Executed on: " + date.toString());
-        Bag<String> b1 = new FixedCapacityBag<>(5);
-        Bag<String> b2 = new DynamicCapacityBag<>();
-        Bag<String> b3 = new LinkedListBag<>();
+        Bag<Integer> b3 = new LinkedListBag<>();
         testBag(b3);
 
 
