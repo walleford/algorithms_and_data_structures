@@ -59,23 +59,6 @@ public class DynamicCapacityBag<Item> implements Bag<Item>
     }
 
     @Override
-    public void maxFreq()
-    {
-        HashMap<String, Integer> freq = new HashMap<String, Integer>();
-        for (Item item: this)
-        {
-            if (!freq.containsKey(item))
-            {
-                freq.put(item.toString(), 1);
-            } else {
-                int value = freq.get(item.toString());
-                freq.put(item.toString(), value+1);
-            }
-        }
-        Map.Entry.comparingByValue();
-    }
-
-    @Override
     public int size() {
         return numberOfElements;
     }

@@ -4,7 +4,10 @@
  */
 
 package a01_data_structure.s1_bags;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -261,26 +264,79 @@ public class TestBag
         }
     }
 
-    public static void testBag(Bag<Integer> bag)
+    public static void testBag(Bag<String> bag, String title)
     {
+        System.out.println("");
+        System.out.println(title);
         System.out.println("Bag: " + bag.toString());
         System.out.println("Adding item: 1");
-        bag.add(1);
+        bag.add("book");
         System.out.println("Bag: " + bag.toString());
-        bag.add(2);
-        bag.add(3);
-        bag.add(3);
-        bag.add(2);
+        System.out.println("-----------");
+        bag.add("tshirt");
+        System.out.println("Bag: " + bag.toString());
+        System.out.println("-----------");
+        bag.add("laptop");
+        System.out.println("Bag: " + bag.toString());
+        System.out.println("-----------");
+        bag.add("cellphone");
+        System.out.println("Bag: " + bag.toString());
+        System.out.println("-----------");
+        bag.add("pens");
+        System.out.println("Bag: " + bag.toString());
+        System.out.println("-----------");
         System.out.println("Bag: " + bag.toString());
         try {
             System.out.println("Adding the sixth item: money");
-            bag.add(5);
+            bag.add("money");
             System.out.println("Bag: " + bag.toString());
         } catch (Exception e) {
             System.out.println("Error adding a sixth element: " +e.getMessage());
         }
         System.out.println("Finding the value with the most frequency...");
-        bag.maxFreq();
+    }
+
+
+    public static int maxFreq(Bag<Integer> bag, int item1, int item2, int item3, int item4, int item5, int item6)
+    {
+        System.out.println("Adding items to bag: " + item1 + " " + item2 + " " + item3 + " " + item4 + " " + item5 + " " + item6 + " ");
+        System.out.println("Bag: " + bag.toString());
+        System.out.println("Adding item: 1");
+        bag.add(item1);
+        System.out.println("Bag: " + bag.toString());
+        bag.add(item2);
+        bag.add(item3);
+        bag.add(item4);
+        bag.add(item5);
+        bag.add(item6);
+        System.out.println("Added all items: " + bag.toString());
+
+        HashMap<Integer, Integer> freq = new HashMap<Integer, Integer>();
+        for (Integer item: bag)
+        {
+            int key = item;
+            if (freq.containsKey(key))
+            {
+                int frequencyCount = freq.get(key);
+                frequencyCount++;
+                freq.put(key, frequencyCount);
+            } else {
+                freq.put(key, 1);
+            }
+        }
+
+        int max_count = 0;
+        int res = -1;
+        for (Map.Entry<Integer, Integer> entry: freq.entrySet())
+        {
+            if (max_count < entry.getValue())
+            {
+                res = entry.getKey();
+                max_count = entry.getValue();
+            }
+        }
+
+        return res;
     }
 
     // This is the main method performing all of the tests declared above.
@@ -289,12 +345,17 @@ public class TestBag
          /**
          * Testing the bag with strings.
          */
-        System.out.println("Fixed Capacity Bag - Task 2a - by Jordan Wallingsford");
+        System.out.println("Linked List - Task 2 - by Jordan Wallingsford");
         Date date = new Date();
         System.out.println("Executed on: " + date.toString());
+        //Bag<String> b1 = new DynamicCapacityBag<>(6);
+        //Bag<String> b2 = new FixedCapacityBag<>(6);
+        Bag<Integer> b1 = new LinkedListBag<>();
+        Bag<Integer> b2 = new LinkedListBag<>();
         Bag<Integer> b3 = new LinkedListBag<>();
-        testBag(b3);
-
-
+        //testBag(b1, "Test of a Dynamic Capacity Bag");
+        System.out.println("Test 1:  " + maxFreq(b1, 1, 2, 1, 3, 4, 1));
+        System.out.println("Test 2:  " + maxFreq(b2, 1, 2, 3, 2, 4, 8));
+        System.out.println("Test 3:  " + maxFreq(b3, 1, 2, 3, 4, 1, 6));
     }
 }
