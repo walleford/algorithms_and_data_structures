@@ -328,8 +328,30 @@ have constructors with no return type.
     added. A typical reason to use this is to save items in a collection while at the same time reversing their
     relative order. 
 
-    ## Implementation
+    ### Array Resizing
 
-    ### Fixed-Capacity Stack
+    - If an array is full, create a new array of *twice* the size, then copy all items over. This will keep from having
+    to create a new array every time an input goes over the initial capacity. 
+        ```java
+        
+        private void resize(int capacity)
+        {
+            String[] copy = new String[capacity];
+            for (int i = 0; i < N; i++)
+            {
+                copy[i] = s[i];
+            }
+            s = copy;
+        }
+        
+        ```
+    - This takes time proportional to N
+    - Time cost: ~3N
+    - Shrinking an array:
 
-    -  
+        - wait until array gets 1/4 full then resize it to half-full
+      
+  ### When to use an array vs. linked list
+
+    - If you need a guarantee that the operations will be quick and successful, use a linked list
+    - If you want something that uses less memory/space and an average short time, use an array
