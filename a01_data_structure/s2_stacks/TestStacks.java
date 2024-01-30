@@ -42,8 +42,27 @@ public class TestStacks
         System.out.println("Empty stack: " + s.toString("[", "]",", "));
         testPushItem(s, "jordan");
         testPushItem(s, "suhayla");
-        testPushItem(s, "moozeh");
+        testPushItem(s, "mozeh");
         testPushItem(s, "bata");
+        testPopItem(s);
+        testPopItem(s);
+        testPopItem(s);
+        testPopItem(s);
+    }
+
+
+    public static void testPopItem(Stack<String> s)
+    {
+        System.out.println(" ");
+        System.out.println("Pop item from stack");
+        System.out.println("Empty stack: " + s.toString("[","]",", "));
+        try {
+            s.pop();
+        } catch (Exception e) {
+            System.out.println("Error popping an item: " + e.getMessage());
+        }
+        System.out.println("Updated stack " + s.toString("[", "]",", "));
+
     }
 
     /**
@@ -52,10 +71,10 @@ public class TestStacks
      */
     public static void main(String[] args)
     {
-        System.out.println("Fixed Capacity Stack - Task 1 - Jordan Wallingsford");
+        System.out.println("Dynamic Capacity Stack - Task 2 - Jordan Wallingsford");
         Date date = new Date();
         System.out.println("Executed on " + date.toString());
-        FixedCapacityStack<String> fcs = new FixedCapacityStack<>(3);
-        testStringStack(fcs);
+        DynamicCapacityStack<String> dcs = new DynamicCapacityStack<>(3);
+        testStringStack(dcs);
     }
 }
