@@ -69,28 +69,8 @@ public class FixedCapacityBag<Item> implements Bag<Item>
         };
     }
 
-
-    /**
-     * This will return the contents of the bag in string form. Will be called each time a bag is concatenated with a
-     * string.
-     * @return String result
-     */
-    @Override
-    public String toString()
+    protected int getCapacity()
     {
-        String result = "[";
-        boolean needSeparator = false;
-        String separator = "";
-        for (Item item: this) {
-            if (needSeparator)
-            {
-                result += separator;
-            } else{
-                needSeparator = true;
-                separator = " ";
-            }
-        }
-        result += "]";
-        return result;
+        return elements.length;
     }
 }

@@ -3,7 +3,9 @@
  * Section A31: Measure Execution Time
  * Task 1: Basic Implementation of a Stopwatch
  */
-package a02_analysis;
+package a02_analysis.s1_time;
+
+import a02_analysis.s1_time.Stopwatch;
 
 import java.util.Date;
 
