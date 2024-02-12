@@ -16,19 +16,19 @@ import java.util.Iterator;
 public class FixedCapacityBag<Item> implements Bag<Item>
 {
     // The array of elements stored inside the bag
-    private Item[] elements;
+    private Item[] elements; // ref to array = 8 bytes
 
     // contains an integer count of the number of current elements inside the bag
-    private int numberOfElements;
+    private int numberOfElements; // int = 4 bytes
 
     /**
      * Constructs the initial bag and sets it's capacity.
      * @param capacity
      */
-    public FixedCapacityBag(int capacity)
+    public FixedCapacityBag(int capacity) // overhead of 16 bytes + 4 padding
     {
         //noinspection unchecked
-        elements = (Item[]) new Object[capacity];
+        elements = (Item[]) new Object[capacity]; // 8 bytes for ref to array
     }
 
     @Override
@@ -53,7 +53,7 @@ public class FixedCapacityBag<Item> implements Bag<Item>
     {
         return new Iterator<Item>()
         {
-            int index=0;
+            int index=0; // 4 bytes for int
             @Override
             public boolean hasNext()
             {
