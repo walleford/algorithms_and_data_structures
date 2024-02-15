@@ -355,3 +355,33 @@ have constructors with no return type.
 
     - If you need a guarantee that the operations will be quick and successful, use a linked list
     - If you want something that uses less memory/space and an average short time, use an array
+
+    ### Calculating Memory Needs
+
+      public class Fraction {
+      long numerator, denominator;
+      public Fraction add(Fraction f) {
+      return new Fraction(....);
+      }
+      // . . . . . //
+      }
+    
+        // Code:
+        Fraction[] fList = new Fraction[10];
+        for (int i=1; i<=10; i++)
+            fList[i] = new Fraction(1,i);\
+
+    - First, let us compute the size for a Fraction object (32):
+
+            Object overhead: 16
+            Instance variable: numerator, a long, needs 8 bytes
+            Instance variable: denominator, a long, needs 8 bytes
+            Total 32.
+            No padding needed as it is multiple of 8.
+            The code declares and initialize the following structures:
+            
+            Fraction[] flist - declares the variable fList, an array of Fraction, stored as an object, needs 8 bytes for its reference value
+            new Fraction[10], an instance of an array of fractions, an object, overhead 24 (object, length, padding) and each element is a reference to a Fraction, 8 bytes for a reference, times 10 elements, 80, total 104
+            the variable i in the for loop, 4
+            the fractions that are referenced in the array, 10 fractions each with a size of 32,  total 320
+            In total, the code needs 436 bytes. 
