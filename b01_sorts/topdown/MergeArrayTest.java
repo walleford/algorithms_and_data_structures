@@ -1,0 +1,54 @@
+package b01_sorts.topdown;
+import util.array.ArrayUtility;
+import java.util.Date;
+
+public class MergeArrayTest
+{
+    public static boolean mergeAuxTest(String name, int[] a1, int start1, int end1, int end2, int[] expected)
+    {
+        int[] aux = new int[a1.length];
+
+        System.out.println("Test: " + name);
+        System.out.println("Pre-mergesort: " + ArrayUtility.toString(a1, "[", ", ", "]"));
+        System.out.println("--------------------------------");
+        System.out.println("Passing to mergesort now...");
+        MergeArray.mergeAux(a1, aux, start1, end1, end2);
+        System.out.println("Result: " + ArrayUtility.toString(a1, "[", ", ", "]"));
+        boolean result = ArrayUtility.equals(a1, expected);
+        System.out.println("Expected Result: " + ArrayUtility.toString(expected, "[", ", ", "]"));
+        if (result) System.out.println("Test successful!");
+        else System.out.println("Test unsuccessful :(");
+        System.out.println("--------------------------------");
+        return result;
+    }
+
+    public static void mergeAuxAllTests()
+    {
+        boolean result = true;
+        result = result & mergeAuxTest("both length 1",
+                new int[] {10,6,32,1,12}, 1,1,2,
+                new int[] {10,6,32,1,12});
+        result = result & mergeAuxTest("both length 2",
+                new int[] {13,23,11,45,21,67}, 0,1,3,
+                new int[] {11,13,23,45,21,67});
+        result = result & mergeAuxTest("both length 3",
+                new int[] {33,55,22,66,44,99,77,88}, 0,2,5,
+                new int[] {22,33,44,55,66,99,77,88});
+        result = result & mergeAuxTest("both length 5",
+                new int[] {12,45,32,67,21,78,64,43,53,99}, 0,4,9,
+                new int[] {12,21,32,43,45,53,64,67,78,99});
+        result = result & mergeAuxTest("length 6 and 7",
+                new int[] {21,10,23,21,1,5,8,45,67,89,102,345,16}, 0,5,12,
+                new int[] {1,5,8,10,16,21,21,23,45,67,89,102,345});
+        System.out.println("All mergeAux tests successful?:    " + result);
+    }
+
+    public static void main(String[] args)
+    {
+        System.out.println("Merge Sort Task 1 - Jordan Wallingsford");
+        Date date = new Date();
+        System.out.println("Executed On: " + date.toString());
+        System.out.println("--------------------------");
+        mergeAuxAllTests();
+    }
+}
