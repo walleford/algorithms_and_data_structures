@@ -15,17 +15,17 @@ import a02_analysis.s1_time.Stopwatch;
  */
 public class TopDownMergeSort
 {
-    public static Comparable aux[]; // this is the auxiliary array
+    // public static int aux[]; // this is the auxiliary array
 
     /**
      * This is the public method called from the client, it will create a new comparable object for aux, and call the
      * private sort method. That aux array will be modified and added to in the merge method.
      * @param a an array of comparable type
      */
-    public static void sort(Comparable[] a)
+    public static void sort(int[] a)
     {
-        aux = new Comparable[a.length];    // Allocate space just once.
-        sort(a, 0, a.length - 1); // lo is a[0] high is a[a.length-1]
+        int[] aux = new int[a.length];    // Allocate space just once.
+        sort(a, aux, 0, a.length - 1); // lo is a[0] high is a[a.length-1]
     }
 
     /**
@@ -36,18 +36,18 @@ public class TopDownMergeSort
      * @param lo int of the lowest index
      * @param hi int of the highest index (array length - 1)
      */
-    private static void sort(Comparable[] a, int lo, int hi)
+    private static void sort(int[] a, int[] aux, int lo, int hi)
     {  // Sort a[lo..hi].
         // If our array length is the same as our low index, then our array is split into single elements. Which means
         // we can return and begin merging back up because we have slit it far enough.
         if (hi <= lo) return;
         int mid = lo + (hi - lo)/2; // calculating the mid-point of the array to sort both sides of that mid-point
-        sort(a, lo, mid);       // Sort left half.
-        sort(a, mid+1, hi);     // Sort right half.
-        merge(a, lo, mid, hi);  // Merge results.
+        sort(a, aux, lo, mid);       // Sort left half.
+        sort(a, aux, mid+1, hi);     // Sort right half.
+        merge(a, aux, lo, mid, hi);  // Merge results.
     }
 
-    private static void merge(Comparable[] a, int lo, int mid, int hi)
+    private static void merge(int[] a, int[] aux, int lo, int mid, int hi)
     {  // Merge a[lo...mid] with a[mid+1...hi].
         /**
          * We use three indexes here: i, j, and k
@@ -72,7 +72,7 @@ public class TopDownMergeSort
         for (int k = lo; k <= hi; k++)  // Merge back to a[lo..hi].
             if      (i > mid)              a[k] = aux[j++]; // check if left half is exhausted
             else if (j > hi )              a[k] = aux[i++]; // check if right half is exhausted
-            else if (aux[j].compareTo(aux[i]) > 0) a[k] = aux[j++]; // is the current key on right less than the left?
+            else if (aux[j] < aux[i])      a[k] = aux[j++]; // is the current key on right less than the left?
             else                           a[k] = aux[i++]; // is the current key on the left less than the right?
     }
 }
