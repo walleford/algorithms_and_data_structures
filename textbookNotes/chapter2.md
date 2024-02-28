@@ -124,3 +124,86 @@ A version of BU Merge sort is the method of choice when sorting data in a linked
 
 
 If all items in an array are the same value, merge sort time is linear.
+
+## Quick Sort
+
+- popular because it isn't difficult to implement, works well for a variety of use-cases, and is substantially faster 
+than any other sorting algorithm
+- uses an in-place sort, requires time proportional to NlogN
+- None of the algorithms we have implemented combine both of these properties
+- Quicksort has a shorter inner loop than most other algorithms
+- How it works:
+
+  - It is a divide and conquer
+  - partitions an array into two subarrays, then sorts those separately. 
+  - rearrange the array such that, when the two subarrays are sorted, the entire thing is sorted
+  ```java
+    public class Quick
+    {
+    public static void sort(Comparable[] a)
+    {
+    StdRandom.shuffle(a);          // Eliminate dependence on input.
+    sort(a, 0, a.length - 1);
+    }
+    
+    private static void sort(Comparable[] a, int lo, int hi)
+    {
+    if (hi <= lo) return;
+    int j = partition(a, lo, hi);  // Partition (see page 291).
+    sort(a, lo, j-1);              // Sort left part a[lo .. j-1].
+    sort(a, j+1, hi);              // Sort right part a[j+1 .. hi].
+    }
+    }
+    ```
+  - The crux of the method is `partition()` which rearranges the array such that 
+    
+    - the entry a[j] is in its final place in the array for some j
+    - no entry in a[lo] through a[j-1] is greater than a[j]
+    - no entry in a[j+1] is less than a[j]
+- Steps:
+
+  - arbitrarily choose a[lo] as the partition item
+  - scan from left to right until we find an entry greater than or equal to the partition item
+  - scan from right to left until we find an entry less than or equal to the partition item
+  - these 2 items are out of place, so we swap them (putting the larger one on the right side of the partition and the 
+  smaller one on the left side)
+  - doing this continuously ensures that no entry to the right of the index `j` are less than the partitioning item
+  - When we finish, we just replace a[lo] with the rightmost entry in the first/left subarray a[j] and return its index j
+
+### Performance Analysis
+
+- inner loop of quicksort increments an index and compares an array entry against a fixed value. This simplicity
+is one factor that makes quicksort quick: it is hard to envision a shorter inner loop in a sorting algorithm
+- best case for quicksort is when each partitioning stage divides the array exactly in half.
+- When keys aren't distinct, precise number of compares is more complicated but it will never be greater than Cn
+- However, if the partitions are unbalanced, quicksort can become very inefficient. This is the benefit of shuffling
+the array, it makes the probability of that so unlikely that we don't have to worry about it.
+
+### Improvements
+
+- use insertion sort if the array length is tiny (any value between 5-15)
+- use the median of 3 items in the array as the selected partitioning item
+- In the case of many of the same elements:
+
+  - utilize a triple partitioning system: left = less than, middle = equal to, right = greater than.
+  ```java
+    public class Quick3way
+    {
+    private static void sort(Comparable[] a, int lo, int hi)
+    {  // See page 289 for public sort() that calls this method.
+    if (hi <= lo) return;
+    int lt = lo, i = lo+1, gt = hi;
+    Comparable v = a[lo];
+    while (i <= gt)
+    {
+    int cmp = a[i].compareTo(v);
+    if      (cmp < 0) exch(a, lt++, i++);
+    else if (cmp > 0) exch(a, i, gt--);
+    else              i++;
+    }  // Now a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi].
+    sort(a, lo, lt - 1);
+    sort(a, gt + 1, hi);
+    }
+    }
+    ```
+  
