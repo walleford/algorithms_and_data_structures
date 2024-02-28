@@ -78,4 +78,14 @@ public class ArrayUtility
         return array;
     }
 
+    public static int[] copy(int[] a)
+    {
+        int[] c = new int[a.length];
+        for (int i = 0; i < a.length; i++)
+        {
+            c[i]=a[i];
+        }
+        return c;
+    }
+
 }
