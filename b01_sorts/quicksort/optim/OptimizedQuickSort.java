@@ -126,4 +126,10 @@ public class OptimizedQuickSort
         // begins our quicksort on the entire array
         sort(a, 0, a.length - 1, MAX_INSERTION_SIZE);
     }
+
+    public static void sort(int[] a, int insertionSize)
+    {
+        // begins our quicksort on the entire array
+        sort(a, 0, a.length - 1, insertionSize);
+    }
 }
