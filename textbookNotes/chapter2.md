@@ -207,3 +207,65 @@ the array, it makes the probability of that so unlikely that we don't have to wo
     }
     ```
   
+
+#### Questions to Know:
+  - Which of the following methods has the best average running time for random arrays of 10 elements? 
+    (if one method has best time and another other times, select both - if one methods always perform an addition 
+    operation than will not be considered)
+
+    Response Feedback:
+    Insertion Sort works best for small arrays and has the smallest overhead. 
+    Even optimized quick sort or optimized top-down merge sort, will have one additional comparison because 
+    they will need to see if insertion sort is applied for the size of the input array. 
+
+  - Which of the following methods has an average execution time of O(N*N)? (O - order of growth)
+    Selection Sort uses around N2/2 compares and N exchanges to sort an array of length N, 
+    giving an order of growth of O(N2) (see textbook)
+    
+    Insertion Sort, for randomly ordered arrays of length N with with distinct keys, insertion sort uses around N2/4 
+    compares and around N2/4 exchanges on the average. The worst case is around N2/2 compares and around N2/2 exchanges 
+    and the best case is N-1 compares and 0 exchanges. (see textbook) Therefore the average order of growth is O(N2) 
+    with the worst case also O(N2) but with the best case O(N).
+    
+    Shell Sort with the increments 1, 4, 13, 40, 121, 364, ... has the number of compares used with the order of growth 
+    of O(N3/2). (see textbook)
+    
+    Top Down Merge Sort uses between 1/2 N lg N and N lg N compares and at most 6 N lg N array accesses to sort any array 
+    of length N (see textbook) Therefore, the order of growth is O(N lg N).
+    
+    Optimized Top Down Merge Sort, will execute faster but the order of growth will be the same O(N lg N).
+    
+    Bottom Up Merge Sort, uses between 1/2 N lg N and N lg N compares and at most 6 N lg N array accesses to sort any array 
+    of length N. (see textbook) Therefore, the order of growth is O(N lg N).
+    
+    Quicksort uses around 2 N ln N compares (and one-sixth that many exchanges) on the average to sort an array of 
+    length N with distinct keys (see textbook) However, it uses N2/2 compares in the worst case (see textbook). 
+    The average execution time is O(N ln N) with worst case O(N2).
+    
+    Optimized QuickSort runs faster but with the same average order of growth. However, the probability of worst case 
+    scenario for typical arrays is reduced. 
+
+  - Which of the following methods has around the same running time for all arrays of 10,000 elements?
+
+    Selection sort, top down merge sort and bottom up merge sort will do the same operations idenpendent of the specific
+    values in the arrays. However, insertion sort, shell sort, optimized top down merge sort, quick sort and optimized 
+    quick sort will run much faster for some arrarys compared with others. 
+
+  - Which of the following methods will execute much faster for some arrays of 10,000 elements?
+
+    Selection sort, top down merge sort and bottom up merge sort will do the same operations idenpendent of the 
+    specific values in the arrays. However, insertion sort, shell sort, optimized top down merge sort, quick sort and 
+    optimized quick sort will run much faster for some arrarys compared with others. 
+
+  - Which of the following methods has (sometimes) the worse running time for an already sorted array of 10,000 elements?
+  (if one method has best time and another other times, select both)
+
+    Quick Sort has O(N*N) time for an already sorted array performing N(N-1) comparisons and N-1 recursive calls on the 
+    stack. All the other methods are at least a little faster.
+
+  - Which of the following methods has (sometimes) the best running time for an already sorted array of 10,000 elements?
+  (if one method has best time and another other times, select both)
+
+    Insertion Sort has O(N) time for an already sorted array performing only N-1 comparisons and not moving any elements
+    All the other methods are much slower.
+
