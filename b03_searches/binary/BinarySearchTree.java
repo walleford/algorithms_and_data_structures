@@ -391,4 +391,17 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Ord
         return null;
     }
 
+    private String toStringHT(String prefix, String left, String val, String right, Node x) {
+        if (x==null) return "";
+        String result = "";
+        result += toStringHT(prefix+right+" ","| ","+- ","  ",x.rightSubtree);
+        result += prefix + val + x.key + "(" + x.value + ")\n";
+        result += toStringHT(prefix+left+" ","  ","+- ","| ",x.leftSubtree);
+        return result;
+    }
+
+    public String toStringHT() {
+        return toStringHT("","","","",rootNode);
+    }
+
 }

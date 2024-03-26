@@ -153,7 +153,6 @@ public class TestSymbolTable
         System.out.println("|----------|----------|----------|----------|");
     }
 
-    private static void deleteTest()
 
     public static void main(String[] args)
     {

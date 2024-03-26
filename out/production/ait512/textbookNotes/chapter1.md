@@ -385,3 +385,51 @@ have constructors with no return type.
             the variable i in the for loop, 4
             the fractions that are referenced in the array, 10 fractions each with a size of 32,  total 320
             In total, the code needs 436 bytes. 
+
+- Given the following memory requierements (in bytes):
+
+    Declared variables of primitive types: boolean 1; byte 1; char 2; int 4; float 4; long 8; double 8
+    
+    Created Objects in memory (new): add the overhead (instance information - 16 bytes) to the memory needed for all 
+    
+    instance variables (non-static fields); pad to  a multiple of 8
+    
+    References of Objects (declared variables with an Object type): 8
+- Compute the memory space needed for the following code fragment:
+    ```java
+        // Given:
+        public class Fraction {
+        long numerator, denominator;
+        public Fraction add(Fraction f) {
+        return new Fraction(....);
+        }
+        // . . . . . //
+        }
+    
+        // Code:
+        Fraction f1 = new Fraction(1,2);
+        Fraction f2 = new Fraction(1,4);
+    ```
+
+    Assumes all the relevant information provided.
+
+    Object overhead: 16
+
+    Instance variable: numerator, a long, needs 8 bytes
+
+    Instance variable: denominator, a long, needs 8 bytes
+
+    Total 32.
+
+    No padding needed as it is multiple of 8.
+
+    The code declares and initialize the following variables:
+
+    
+The variable f1, a Fraction, needs 8 bytes for its reference value and 32 bytes for the object created with the 
+constructor, total 40
+
+The variable f2, a Fraction, needs 8 bytes for its reference value and 32 bytes for the object created with the 
+constructor, total 40
+
+**In total the code needs 80 bytes.** 

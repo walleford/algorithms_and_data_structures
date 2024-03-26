@@ -269,3 +269,6 @@ the array, it makes the probability of that so unlikely that we don't have to wo
     Insertion Sort has O(N) time for an already sorted array performing only N-1 comparisons and not moving any elements
     All the other methods are much slower.
 
+  - For the standard selection sort method select all that apply:
+
+    For a given array length, the running time will be almost equal for any two different arrays
