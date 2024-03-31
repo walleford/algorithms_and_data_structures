@@ -200,3 +200,71 @@
 ### Analysis of BST Operations
 
   - In a BST, all operations take time proportional to the height of the tree, in the worst case
+
+## 3.3 Balanced Search Trees
+
+  - previous algorithms work well in a variety of cases, but have poor worst-case performance.
+  - Balanced search tree is a binary search tree that is guaranteed to be logarithmic no matter the sequence of keys 
+    used to construct it
+
+### 2-3 Search Tree
+
+  - We need to allow nodes to hold more than one key. In a standard BST: the nodes are known as 2-nodes (2 links, one key)
+  - We will now use 3-nodes: 3 links and two keys
+  - A 2-3 Search Tree is a tree that is either empty or:
+
+    - a 2-node, with one key (and associated value) and two links, a left link to a 2-3 search tree with smaller keys,
+      and a right link to a 2-3 search tree with larger keys
+    - a 3 node, with two keys (and associated values) and three links, a left/right link to smaller/larger 2-3 search 
+      tree, and a mid link to a 2-3 search tree with keys in between the values of the two keys in the root node
+  - A perfectly balanced 2-3 search tree is one whose null links are all the same distance from the root.
+
+### Searching
+
+  - to determine whether a key is in the tree, we compare it against the keys at the root. If it is equal to any,
+    we have a search hit. Otherwise, we follow the link from the root to the subtree corresponding to the interval of
+    key values that could contain the search key, if that link is null we have a search miss; otherwise we recursively
+    search that tree
+
+### Inserting into a 2-node
+
+  - search for the key where the search terminates, and if it is a 2-node then we replace it with a 3-node containing
+    the old key and the new key.
+
+### Inserting into a 3-node consisting of a single 3-node
+
+  - if the tree only has a single 3-node and you are inserting, you must temporarily put the key into a 4-node
+    (three keys and 4 links). Then convert into a 2-3 tree made up of three 2-nodes, one with the middle key, one with
+    the smallest key, and one with the largest key. The middle key is the parent node, and the smaller one is pointed 
+    to by the left link of the middle key, while the right link points to the larger of the 3 original keys
+
+### Inserting into a 3-node whose parent is a 3-node
+
+  ![img.png](img.png)
+
+  - again, make a temporary 3-node, then split it and insert the middle key into the parent. 
+  - the parent was a 3-node so we replace it with a temporary 4-node containing the middle key from the 4-node split. 
+    Then we split the new 4 node and insert its middle key into its parent. We continue up the tree, splitting 4-nodes
+    and inserting their middle keys into their parents until reaching a 2-node, which we replace with a 3-node that 
+    doesn't need to be split, or we reach a 3-node at the root.
+
+### Splitting the Root
+
+  - if we have 3-nodes along the whole path from the insertion point to the root, we end up with a temporary 4-node at
+    the root. In this case we can process in precisely the same way as inserting into a tree consisting of a single 3-node
+  - We split the temporary 4-node into 3 2-nodes, increasing the height of the tree by 1.
+
+### Local Transformations
+    
+  - splitting a temporary 4-node in a 2-3 tree involves one of 6 transformations
+  
+      - it may be the root, the left child or the right child of a 2-node, or it may be the left, middle, or right child
+        of a 3-node
+  - all changes in a 2-3 tree are local. Meaning no part of the tree needs to be examined or modified other than the 
+    specified nodes and links
+
+### Final Notes on Balanced BST
+
+  - search and insert operations in a 2-3 tree are guaranteed to visit at most logN nodes
+  - total cost of any search or insert is guaranteed to be logarithmic
+  - 
