@@ -22,7 +22,7 @@ public class OptimizedTopDownMergeSort
              * Check if the left value is less than this one, move on to that one to make sure
              *
              */
-            for (int i = lo+1; i<hi;i++)
+            for (int i = lo+1; i<=hi;i++)
             {
                 int temp = a[i];
                 int j;

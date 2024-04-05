@@ -267,4 +267,173 @@
 
   - search and insert operations in a 2-3 tree are guaranteed to visit at most logN nodes
   - total cost of any search or insert is guaranteed to be logarithmic
-  - 
+
+### Questions to know:
+
+- Given the following sequence of letters create  a 2-3 balanced search tree by adding the nodes following the insertion 
+  algorithm. For the letter provided (e.g. N3) indicate one of the following operations:
+
+        transform empty root in 2 node N3
+        transform 2 node N1 in 3 node  N1 N3
+        transform 2 node N4 in 3 node  N3 N4
+        transform 3 node N1 N2  in 4 node N1 N2 N3
+        transform 3 node N1 N4  in 4 node N1 N3 N4
+        transform 3 node N4 N5  in 4 node N3 N4 N5
+        Sequence: B A L N C E D
+
+- Where you will place the letter: C
+  
+        After inserting N we obtain the 2-3 tree:
+        
+        B
+        / \
+        A  L N
+        When we add C we will add it to the node L N and obtain a temporary 4 node:
+        
+        B
+        / \
+        A  C L N
+        Therefore the correct answer is: transform 3 node L N in 4 node C L N
+- Given the following sequence of letters create  a 2-3 balanced search tree by adding the nodes following the insertion 
+algorithm. For the letter provided (e.g. N3) indicate one of the following operations:
+
+    `Sequence: B A L N C E D`
+
+- When you placed the letter: L you obtained a 4  node:  A B L. To resolve this 4 node you created a new root 2-node B. 
+What you will place as the right node of B? Answer using the template:
+
+    `2 node N`
+    `3 node N1 N2`
+
+- When we add L we will add it to the root node and obtain a temporary 4 node:
+
+    ```
+     A B L
+    / | | \
+    To resolve it we  will create a new root 2 node: B. To  the right of B you  will place the 2 node L.
+    ```
+
+- Given the following sequence of letters create  a 2-3 balanced search tree by adding the nodes following the insertion
+algorithm. For the letter provided (e.g. N3) indicate one of the following operations:
+
+    
+    transform empty root in 2 node N3
+    transform 2 node N1 in 3 node  N1 N3
+    transform 2 node N4 in 3 node  N3 N4
+    transform 3 node N1 N2  in 4 node N1 N2 N3
+    transform 3 node N1 N4  in 4 node N1 N3 N4
+    transform 3 node N4 N5  in 4 node N3 N4 N5
+    Sequence: B A L N C E D
+
+- Where you will place the letter: N
+
+
+    After inserting L we obtain the 2-3 tree:
+    
+    B
+    / \
+    A   L
+    When we add N we will add it to the node L and obtain:
+    
+    B
+    / \
+    A  L N
+    Therefore the correct answer is: transform 2 node L in 3 node L N
+
+- Given the following sequence of letters create  a 2-3 balanced search tree by adding the nodes following the insertion 
+algorithm. For the letter provided (e.g. N3) indicate one of the following operations:
+
+
+    transform empty root in 2 node N3
+    transform 2 node N1 in 3 node  N1 N3
+    transform 2 node N4 in 3 node  N3 N4
+    transform 3 node N1 N2  in 4 node N1 N2 N3
+    transform 3 node N1 N4  in 4 node N1 N3 N4
+    transform 3 node N4 N5  in 4 node N3 N4 N5
+    Sequence: B A L N C E D
+
+Where you will place the letter: B
+
+
+    Starting with an empty root and adding B you will just  add  B to the root node, obtaining the 2 node B
+
+- Given the following sequence of letters create  a 2-3 balanced search tree by adding the nodes following the insertion 
+algorithm. For the letter provided (e.g. N3) indicate one of the following operations:
+
+
+    transform empty root in 2 node N3
+    transform 2 node N1 in 3 node  N1 N3
+    transform 2 node N4 in 3 node  N3 N4
+    transform 3 node N1 N2  in 4 node N1 N2 N3
+    transform 3 node N1 N4  in 4 node N1 N3 N4
+    transform 3 node N4 N5  in 4 node N3 N4 N5
+    Sequence: B A L N C E D
+
+- Where you will place the letter: L
+
+
+    After inserting B and A we obtain the 2-3 tree:
+    
+    A B
+    / | \
+    When we add L we will add it to the root node and obtain a temporary 4 node:
+    
+    A B L
+    / | | \
+    Therefore the correct answer is: transform 3 node A B in 4 node A B L
+    
+    The keys must be  ordered in the nodes
+
+- Given the following sequence of letters create  a 2-3 balanced search tree by adding the nodes following the insertion 
+algorithm. For the letter provided (e.g. N3) indicate one of the following operations:
+
+
+    transform empty root in 2 node N3
+    transform 2 node N1 in 3 node  N1 N3
+    transform 2 node N4 in 3 node  N3 N4
+    transform 3 node N1 N2  in 4 node N1 N2 N3
+    transform 3 node N1 N4  in 4 node N1 N3 N4
+    transform 3 node N4 N5  in 4 node N3 N4 N5
+    Sequence: B A L N C E D
+
+- Where you will place the letter: A
+
+
+    After inserting B we obtain the 2-3 tree:
+    
+    B
+    / \
+    When we add A we will add it to the root node and obtain:
+    
+    A B
+    / | \
+    Therefore the correct answer is: transform 2 node B in 3 node A B
+
+Given the following sequence of letters create  a 2-3 balanced search tree by adding the nodes following the insertion 
+algorithm. For the letter provided (e.g. N3) indicate one of the following operations:
+
+
+    transform empty root in 2 node N3
+    transform 2 node N1 in 3 node  N1 N3
+    transform 2 node N4 in 3 node  N3 N4
+    transform 3 node N1 N2  in 4 node N1 N2 N3
+    transform 3 node N1 N4  in 4 node N1 N3 N4
+    transform 3 node N4 N5  in 4 node N3 N4 N5
+    Sequence: B A L N C E D
+
+Where you will place the letter: C
+
+Selected Answer:
+transform 3 node N4 N5 in 4 node N3 N4 N5
+Response Feedback:
+After inserting N we obtain the 2-3 tree:
+
+B
+/ \
+A  L N
+When we add C we will add it to the node L N and obtain a temporary 4 node:
+
+B
+/ \
+A  C L N
+Therefore the correct answer is: transform 3 node L N in 4 node C L N
