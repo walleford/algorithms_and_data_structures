@@ -433,3 +433,46 @@ The variable f2, a Fraction, needs 8 bytes for its reference value and 32 bytes 
 constructor, total 40
 
 **In total the code needs 80 bytes.** 
+
+```java
+// Given:
+public final class Long extends Number implements Comparable<Long> {
+    private final long value;
+    // . . . . . //
+}
+public class Fraction {
+    Long numerator, denominator;
+    public Fraction add(Fraction f) {
+        return new Fraction(....);
+    }
+    // . . . . . //
+}
+
+// Code: 
+Fraction f = new Fraction(1,2);
+```
+
+Calculate the total bytes:
+```text
+First, let us compute the size for a Long object (32):
+
+Object overhead: 16
+Instance variable: value, a long, needs 8 bytes
+Total 24.
+No padding needed as it is multiple of 8.
+Second, let us compute the size for a Fraction object (32):
+
+Object overhead: 16
+Instance variable: numerator, a reference to a Long, needs 8 bytes
+Instance variable: denominator, a reference to a Long, needs 8 bytes
+Total 32.
+No padding needed as it is multiple of 8.
+The code declares and initialize the following variables and objects:
+
+new Fraction(1,2) will create two Long values for 1 and 2
+new Long(1), automatically created for the initialization of 1/2 fraction, an instance of a Long, needs 24
+new Long(2), needs 24 (same explanation as above)
+new Fraction(1,2), needs 32 (stores references to the two Long values)
+f, a Fraction, needs 8 bytes for the reference to the value
+In total, we will need 24+24+32+8 = 88 bytes.
+```
