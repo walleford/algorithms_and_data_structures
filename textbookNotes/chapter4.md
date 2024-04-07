@@ -111,4 +111,62 @@
 
   ![Output of list-of-edges input](../images/04_09-outformatle.jpg)
   
-  - 
+  ![Order of growth performance for typical graph implementations](../images/p0527-01.jpg)
+  
+### Depth First Search
+
+  - Searching In A Maze
+
+    - searching through a graph can be compared to finding our way through a maze that has passages connected by
+      intersections
+    - maze = graph, intersection = vertex, passage = edge
+    - Tremaux Exploration:
+
+      - take any unmarked passage, unrolling a string behind you
+      - mark all intersections and passages the first time you visit them
+      - retrace steps (using the string) when approaching a marked section
+      - retrace steps when no univisited options remain at an intersection encountered while retracing steps
+    - Basic method for searching in a graph mimics the above exploration, but is simpler to describe.
+    - Searching in a graph involves invoking a method that visits vertices by:
+
+      - mark it as having been visited
+      - visit, recursively, all the vertices that are adjacent to it and that have not yet been marked
+    - This is called the *Depth First Search*
+    - DFS marks all the vertices connected to a given source in time proportional to the sum of their degrees.
+  - One-Way Passages
+
+    - when we have processed all the edges incident to a vertex (explored all the passages leaving an intersection)
+      we return. 
+    - One way passage mazes are graphs with vertexes that have one entry edge, and one exit edge
+    - In a one way maze, we encounter each edge twice and each vertex twice. In a DFS of one way passages, we either
+      do a recursive call when we encounter an edge `v-w` (if `w` is not marked), or skip the edge (if `w` is marked)
+    - The second time we encounter an edge, in the opposite orientation `w-v`, we always ignore it because the `v` vertex
+      has certainly already been visited
+  - Tracing DFS
+
+    - one good way to understand an algorithm is to trace its behavior on a small example
+    - first thing to bear in mind when doing a trace is that the order in which the edges are examined and vertices 
+      visited depends upon the representation, not just the graph or the algorithm
+    - Tracing a DFS takes twice as long as the amount of edges
+  - Connectivity
+
+    1. Given a graph: are two given vertices connected? How many connected components do they have?
+    - this is easily solved with our standard graph-processing design pattern. 
+    - First question could be renamed the path detection problem:
+
+      - Given a graph and a source vertex `s`, support queries of the form is there a path from `s` to a given
+        target vertex `v`? If so, find it.
+      - we do this by putting each vertex encountered on our way to the target vertex in a stack until reaching the target
+      - DFS allows us to provide clients with a path from a given source to any marked vertex in time proportional 
+        its length.
+
+### Breadth First Search
+
+  - Single-source shortest paths: given a graph and a source vertex `s`, support queries of the form *Is there a path
+    from `s` to a given target vertex `v`?* If so, find the shortest path.
+  - breadth-first search is the classical method for solving this problem. 
+  - To do so, we start at `s` and check for `v` among all the vertices that we can reach by following one edge, then
+    we check for `v` among all the vertices we can reach by following two edges, and so on and so forth.
+
+    ![bf maze exploration](../images/04_18-bfstrace6maze.jpg)
+  - when we come to a point where we have more than one edge to traverse, we traverse one and save the other for later.
