@@ -170,3 +170,107 @@
 
     ![bf maze exploration](../images/04_18-bfstrace6maze.jpg)
   - when we come to a point where we have more than one edge to traverse, we traverse one and save the other for later.
+
+## 4.2 Directed Graphs
+
+- Definition. A directed graph (or digraph) is a set of vertices and a collection of directed edges. 
+- Each directed edge connects an ordered pair of vertices.
+- A directed edge points from the first vertex in the pair to the second vertex
+- the outdegree of a vertex in a digraph is the number of edges pointing from it
+- the indegree of a vertex in a digraph is the number of edges pointing to it
+- Definition. A directed path in a digraph is a sequence of vertices in which there is a (directed) edge pointing from 
+  each vertex in the sequence to its successor in the sequence. A directed cycle is a directed path with at least one edge
+  whose first and last vertices are the same. A simple path is a path with no repeated vertices. A simple cycle is a cycle
+  with no repeated edges or vertices (except the requisite repetition of the first and last vertices). 
+  The length of a path or a cycle is its number of edges
+- Proposition D. DFS marks all the vertices in a digraph reachable from a given set of sources in time proportional to 
+  the sum of the outdegrees of the vertices marked.
+- A directed acyclic graph (DAG) is a digraph with no directed cycles. think of a cycle as a deadlock (dining philosophers)
+- Is a given digraph a DAG? 
+  - Developing a depth-first-search-based solution to this problem is not difficult, based on the fact that the 
+    recursive call stack maintained by the system represents the “current” directed path under consideration 
+    (like the string back to the entrance in Tremaux maze exploration). If we ever find a directed edge v->w to a vertex
+    w that is on that stack, we have found a cycle, since the stack is evidence of a directed path from w to v, and the
+    edge v->w completes the cycle. Moreover, the absence of any such back edges implies that the graph is acyclic.
+- Proposition G. With DFS, we can topologically sort a DAG in time proportional to V+E.
+- In an undirected graph, two vertices v and w are connected if there is a path connecting them—we can use that path to  
+  get from v to w or to get from w to v. In a digraph, by contrast, a vertex w is reachable from a vertex v if there is 
+  a directed path from v to w, but there may or may not be a directed path back to v from w.
+- Definition. Two vertices v and w are strongly connected if they are mutually reachable: that is, if there is a 
+  directed path from v to w and a directed path from w to v. A digraph is strongly connected if all its vertices are 
+  strongly connected to one another.
+
+## 4.3 Minimum Spanning Tree
+
+  - an edge weighted graph is a graph model where we associate weights or costs with each edge.
+  - A spanning tree of a graph is a connected subgraph with no cycles that includes all the vertices
+  - A minimum spanning tree of an edge-weighted graph is a spanning tree whose weight (the sum of the weights of its
+    edges) is no larger than the weight of any other spanning tree
+  - two classical algorithms for computing an MST: prim's algorithm and kruskal's algorithm
+  - Assumptions:
+
+    - the graph is connected
+    - edge weights are not necessarily distances (they could be time, cost, or anything else)
+    - the edge weights may be zero or negative
+    - the edge weights are all different (if edges can be equal, the MST may not be unique)
+  - Two defining properties of a *tree*
+
+    1. adding an edge that connects two vertices in a tree creates a unique cycle
+    2. removing an edge from a tree breaks it into two separate subtrees
+  - Cut Property:
+
+    - has to do with identifying edges that must be in the MST of a given edge-weighted graph, by dividing vertices into
+      two sets and examining edges that cross that division
+    - Definition: a cut of a graph is a partition of its vertices into nonempty disjoint sets. A crossing edge of a cut
+      is an edge that connects a vertex in one set with a vertex in another set.
+    - we specify a cut by specifying a set of vertices
+    - given any cut in an edge-weighted graph, the crossing edge of a minimum weight is in the MST of the graph
+  - Greedy Algorithm
+
+    - apply the cut property to accept an edge as an MST edge, continuing until finding all of the MST edges. 
+    - The greedy MST algorithm colors black all edges in the MST of any connected edge-weighted graph with V vertices:
+      starting with all edges colored gray, find a cut with no black edges, color its minimuum-weight edge black, and 
+      continue until V-1 edges have been colored black
+  - Edge Weighted Graphs:
+
+    - in the adjacency matrix representation of a graph, we can just convert the edge boolean to an edge weight, in the
+      adjacency lists representation we can define a node that contains both a vertex and a weight field to put in the
+      adjacency lists
+    - Edge Object:
+
+      - API:
+        ![edge api](../images/edgeapi.jpg)
+    - Edge Weighted Graph API:
+        ![edge weighted graph](../images/EWG.jpg)
+    
+### Prims Algorithm
+
+  - attach a new edge to a single growing tree at each step. Start with any vertex as a single vertex tree; then add
+    add V-1 edges to it, always taking next (coloring black) the minimum weight edge that connects a vertex on the tree
+    to a vertex not yet on the tree.
+  - Data structures:
+
+    - vertices on the tree will use a vertex-indexed boolean array `marked[]` where `marked[v]` is true if v is on the tree
+    - edges in the tree will be kept as a queue to collect the edges in the MST OR as a vertex-indexed array `edgeTo[]`
+      of `Edge` objects where `edgeTo[v]` is the `Edge` that connects V to the tree.
+    - Crossing edges will use a `MinPQ<Edge>` priority queue that compares edges by weight
+  - each time we add an edge to the tree, we also add a vertex. To maintain the set of crossing edges, we need to 
+    add the edge that comes from a vertex in the tree to a vertex out of the tree to a priority queue of crossing edges
+  - Eager implementation:
+
+    - remove edges that connect the vertex just added to a tree vertex that is already on the queue because it is 
+      ineligible
+  - Lazy Implementation:
+
+    - leave edges in the queue, then remove them later when we determine eligibility
+  - Lazy implementation uses space proportional to E and time proportional to ElogE to compute the MST of a connected
+    edge weighted graph with E edges and V vertices
+
+### Kruskals Algorithm
+
+  - proces the edges in order of their weight values (smallest to largest), taking for the MST each edge that does not
+    form a cycle with edges previously added, stopping after V-1 edges. 
+  - The black edges here gradually form the MST
+  - Kruskal’s algorithm uses space proportional to E and time proportional to E log E (in the worst case) to compute 
+    the MST of an edge-weighted connected graph with E edges and V vertices.
+  - 

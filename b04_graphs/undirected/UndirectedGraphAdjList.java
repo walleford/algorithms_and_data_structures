@@ -314,7 +314,49 @@ public class UndirectedGraphAdjList implements UndirectedGraph
                 + edgesSetToString()
                 + ")";
         return result;
+    }
 
+    /**
+     * Loops through vertices degrees and determines whether or not a vertex is in another vertex's degree list
+     * If it is, then an edge between the two exists.
+     * @param vertex1Index
+     * @param vertex2Index
+     * @return boolean of whether or not an edge exists
+     */
+    @Override
+    public boolean hasEdge(int vertex1Index, int vertex2Index)
+    {
+        for (int ae = 0; ae < verticesDegrees[vertex1Index]; ae++)
+        {
+            if (vertex2Index == adjacencyLists[vertex1Index][ae])
+                return true;
+        }
+        return false;
+    }
 
+    public static UndirectedGraphAdjList createRandomGraph(int numberOfVertices, int numberOfEdges)
+    {
+        if (numberOfEdges > (numberOfVertices-1)*numberOfVertices / 2)
+        {
+            // set the number of edges to this formula, if it is originally greater than that formula
+            numberOfEdges = (numberOfVertices-1) * numberOfVertices / 2;
+        }
+        UndirectedGraphAdjList graph = new UndirectedGraphAdjList(numberOfVertices);
+        for (int ei = 0; ei < numberOfEdges; ei++)
+        {
+            boolean created = false;
+            while (!created)
+            {
+                int v1 = (int) (Math.random() * numberOfVertices);
+                int v2 = (int) (Math.random() * numberOfVertices);
+                // if there is no edge already, and the two vertices don't equal, then we add the edge
+                if (v1 != v1 && !graph.hasEdge(v1,v2))
+                {
+                    graph.addEdge(v1,v2);
+                    created = true;
+                }
+            }
+        }
+        return graph;
     }
 }
