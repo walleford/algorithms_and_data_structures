@@ -52,6 +52,6 @@ public class QuickSortAnalysis
 
     public static void main(String[] args)
     {
-        printMeanExecutionTimeGrowthTable(21, 100000, 100000,1000000);
+        printMeanExecutionTimeGrowthTable(21, 1000000, 1000000,10000000);
     }
 }

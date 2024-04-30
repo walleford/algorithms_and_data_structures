@@ -1,16 +1,22 @@
-/**
- * B32-PA QuickSort Optimization
- */
-package b01_sorts.quicksort.optim;
+package b01_sorts.quicksort.threaded;
+
 
 import a02_analysis.s1_time.Stopwatch;
 import a02_analysis.s1_time.TimeAnalysis;
-import b01_sorts.quicksort.basic.QuickSort;
 import util.array.ArrayUtility;
 
-public class OptimizedQuickSortAnalysis
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
+
+/**
+ * Used to test the performance of the threaded quick sort algorithm.
+ *
+ * @author jordan wallingsford
+ */
+public class ThreadedQuickSortTest
 {
-    private static TimeAnalysis meanTime(String name, int numberOfExecutions, int numberOfElements)
+    private static TimeAnalysis meanTime(String name, int numberOfExecutions, int numberOfElements) throws ExecutionException, InterruptedException
     {
         Stopwatch watch = new Stopwatch();
         TimeAnalysis ta = new TimeAnalysis(name, numberOfExecutions);
@@ -19,19 +25,21 @@ public class OptimizedQuickSortAnalysis
             int[] array = ArrayUtility.generateIntArray(numberOfElements, Integer.MIN_VALUE, Integer.MAX_VALUE);
             watch.startWatch();
             // test code
-            OptimizedQuickSort.sort(array);
+            ForkJoinPool forkJoinPool = new ForkJoinPool();
+            ForkJoinTask<Void> future = forkJoinPool.submit(new Main.QuickSortTask(array, 0, array.length - 1, 100));
+            future.get();
             // end test code
             long time = watch.elapsedTime();
-            ta.add(time);;
+            ta.add(time);
         }
         return ta;
     }
 
     private static void printMeanExecutionTimeGrowthTable(int numberOfExecutions, int minArrayLength,
-                                                          int arrayIncrementLength, int maxArrayLength)
+                                                          int arrayIncrementLength, int maxArrayLength) throws ExecutionException, InterruptedException
     {
         System.out.println("Mean execution time growth table");
-        System.out.println("  - Method: Optimized QuickSort of N integers serialized");
+        System.out.println("  - Method: QuickSort of N integers utilizing multiple threads");
         System.out.println("  - Sample size for time estimation: "+numberOfExecutions);
         System.out.println("|-----------|--------|------|------|------------------|");
         System.out.println("|         N |   Mean |  Min |  Max |         CI 99.9% |");
@@ -45,9 +53,8 @@ public class OptimizedQuickSortAnalysis
         System.out.println("|-----------|--------|------|------|------------------|");
     }
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws ExecutionException, InterruptedException
     {
-        printMeanExecutionTimeGrowthTable(21, 1000000,
-                1000000,10000000);
+        printMeanExecutionTimeGrowthTable(21, 1000000, 1000000,10000000);
     }
 }
